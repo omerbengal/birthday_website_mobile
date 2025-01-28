@@ -22,7 +22,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: dist-artifact
-          path: dist
+          path: ./dist
   deploy:
     needs: build
     runs-on: ubuntu-22.04
@@ -32,9 +32,9 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: dist-artifact
-          path: dist
+          path: ./dist
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: dist
+          publish_dir: ./dist
