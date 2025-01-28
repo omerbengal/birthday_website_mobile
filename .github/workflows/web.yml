@@ -10,7 +10,7 @@ jobs:
   build:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v3
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
@@ -19,13 +19,23 @@ jobs:
         run: npm install
       - name: Build
         run: npm run build
+      - name: Upload dist
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist-artifact
+          path: dist
   deploy:
     needs: build
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v3
+      - name: Download dist
+        uses: actions/download-artifact@v3
+        with:
+          name: dist-artifact
+          path: dist
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+          publish_dir: dist
