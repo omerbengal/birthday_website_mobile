@@ -19,7 +19,7 @@ jobs:
       - name: Build
         run: npm run build
       - name: Debug dist folder
-        run: ls -la ./dist
+        run: ls -la
       - name: Upload dist
         uses: actions/upload-artifact@v3
         with:
