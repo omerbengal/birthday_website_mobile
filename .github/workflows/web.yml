@@ -18,11 +18,14 @@ jobs:
         run: npm install
       - name: Build
         run: npm run build
+      - name: Debug dist folder
+        run: ls -la ./dist
       - name: Upload dist
         uses: actions/upload-artifact@v3
         with:
           name: dist-artifact
           path: ./dist
+          if-no-files-found: warn
   deploy:
     needs: build
     runs-on: ubuntu-22.04
